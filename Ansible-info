@@ -5,5 +5,8 @@
 # information about hosts 
 ansible all -m setup
 
+#download file from url
+ansible all -m get_url -a "url=http://exaple.com dest=/dest_path" -b
 
+ansible all -m shell -a "ls -lha /home" -b
 
