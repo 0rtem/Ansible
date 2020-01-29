@@ -22,7 +22,9 @@ ansible all -m yum -a "name:stress state=removed" -b
 # uri module 
 ansible all -m uri -a "url=http:/www.adv-it.net return_content=yes"
 
+ansible all -m yum -a "name:httpd state=latest" -b
 
+ansible all -m service -a "name:httpd state=started enabled=yes" -b
 
 
 
