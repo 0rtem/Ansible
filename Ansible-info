@@ -1,4 +1,9 @@
 #setup – Gathers facts about remote
 # https://docs.ansible.com/ansible/latest/modules/setup_module.html
 
+#AD-hock commands
+# information about hosts 
 ansible all -m setup
+
+
+
