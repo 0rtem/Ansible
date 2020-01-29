@@ -10,3 +10,19 @@ ansible all -m get_url -a "url=http://exaple.com dest=/dest_path" -b
 
 ansible all -m shell -a "ls -lha /home" -b
 
+# delete file
+ansible all -m file -a "path=/home/some.file state=absent" -b
+
+# install with yum
+ansible all -m yum -a "name:stress state=installed" -b
+
+# remove with yum
+ansible all -m yum -a "name:stress state=removed" -b
+
+# uri module 
+ansible all -m uri -a "url=http:/www.adv-it.net return_content=yes"
+
+
+
+
+
