@@ -26,5 +26,10 @@ ansible all -m yum -a "name:httpd state=latest" -b
 
 ansible all -m service -a "name:httpd state=started enabled=yes" -b
 
+ansible all -m service -a "name:httpd state=removed" -b
+
+#debug -v -vv -vvv -vvvv
+ansible all -m shell -a "ls /var" -vvv
+
 
 
