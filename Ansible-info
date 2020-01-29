@@ -32,4 +32,7 @@ ansible all -m service -a "name:httpd state=removed" -b
 ansible all -m shell -a "ls /var" -vvv
 
 
+#ansible info
+ansible-doc -l | grep some text
+
 
