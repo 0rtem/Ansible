@@ -35,4 +35,5 @@ ansible all -m shell -a "ls /var" -vvv
 #ansible info
 ansible-doc -l | grep some text
 
-
+#ansible servers info 
+ansible-inventory --list
