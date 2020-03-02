@@ -1,0 +1,25 @@
+---
+
+- name: Install Apache and Upload my WebPage
+  hosts: all
+  become: yes
+  
+  vars:
+    source_file: ./MyWebSiteIndex.html
+    destination_file: /var/www/html
+    
+  tasks:
+  - name: Install Apache Web Serve
+    yum: name=httpd state=latest
+    
+  - name: Copy Home Page to Servers
+    copy: src={{ source_file }} dest={{ destination_file }} mode=0555
+    notify: Restart Apache
+    
+  - name: Start Web Server and make it ebale on boot
+    service: name=httpd state=started enabled=yes
+
+#handlesrs для того, аби рестартувати сервіс лише коли були зміни
+  handlers:
+  - name: Restart Apache
+    service: name=httpd state state=restarted
