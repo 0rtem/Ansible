@@ -69,4 +69,9 @@ ansible-inventory --list
         
    - debug:
         var: ansible_distrubution
+   - shell: uptime
+     register: results # зберігаємо stdout put команди в змінну.
+     
+   - debug:
+        var: results
 
