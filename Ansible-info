@@ -37,3 +37,36 @@ ansible-doc -l | grep some text
 
 #ansible servers info 
 ansible-inventory --list
+
+
+#DEBUGING ANSIBLE
+#playbook
+---
+- name: Playbook for variables
+  hosts: all
+  become: yes
+  
+  vars:
+    message1: Hello
+    message2: World
+    secret: 12345Pass
+ 
+  tasks:
+   - name: Print secret varibale
+     debug:
+        var: secret
+   
+   - debug:
+        mgs: "Secret word: {{ sercer }}"
+        
+   - debug:
+        msg: "Owner server -->  {{ owner }} <--"
+   
+   - set_fact: full_message="{{ message1 }} {{ message2 }} from {{ owner }}"
+   
+   - debug:
+        var: full_message
+        
+   - debug:
+        var: ansible_distrubution
+
