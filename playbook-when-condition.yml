@@ -1,0 +1,33 @@
+---
+- name: Install Apache and Upload my Home Page
+  hosts: all
+  become: yes
+
+
+  vars:
+    source_file: ./Ansible-example/Index.html
+    dest_file: /var/www/html
+
+  tasks:
+    - name: Check and print Linux Version
+      debug: var=ansible_os_family
+
+    - block: # ------Block for RedHat--------#
+
+        - name: Install Apache Web Server for RedHat
+          yum: name=httpd state=latest
+
+        - name: Copy Home page file to Web Server
+          copy: src={{ source_file }} dest={{ dest_file }} mode=0555
+          notify: Restart Apache RedHat
+
+        - name: Start Web server for Redhat
+          service: name=httpd state=started ebabled=yes
+
+      when: ansible_os_family == "RedHat"
+
+
+    handlers:
+      - name: Restart Apache Redhat
+        service: name=httpd state=restarted
+
