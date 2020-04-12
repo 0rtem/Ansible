@@ -15,7 +15,7 @@
     - block: # ------Block for RedHat--------#
 
         - name: Install Apache Web Server for RedHat
-          yum: name=httpd state=latest
+          apt: name=apache2 state=latest
 
         - name: Copy Home page file to Web Server
           copy: src={{ source_file }} dest={{ dest_file }} mode=0555
@@ -24,10 +24,10 @@
         - name: Start Web server for Redhat
           service: name=httpd state=started ebabled=yes
 
-      when: ansible_os_family == "RedHat"
+      when: ansible_os_family == "Debian"
 
 
-    handlers:
+  handlers:
       - name: Restart Apache Redhat
-        service: name=httpd state=restarted
+        service: name=apache2 state=restarted
 
