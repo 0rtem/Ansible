@@ -1,0 +1,13 @@
+---
+- name: Loops Playbooks
+  hosts: all
+  become: yes
+
+  tasks:
+    - name: Say hello to all
+      debug: msg="Hello {{ item }}" # зарезевированое слово {{ item }}
+      loop:
+        - "Vasya"
+        - "Petya"
+        - "Masha"
+        - "Olya"
