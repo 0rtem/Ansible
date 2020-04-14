@@ -18,3 +18,7 @@
       delay: 2
       retries: 10
       until: outpur.stdout.find("ZZZZ") == false
+
+    - name: Print final output
+      debug:
+        var: output.stdout
