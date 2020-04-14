@@ -22,3 +22,7 @@
     - name: Print final output
       debug:
         var: output.stdout
+
+#    - name: Install pacages
+#      apt: name= {{ item }} state=installed
+#      with_items:

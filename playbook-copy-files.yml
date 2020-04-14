@@ -1,0 +1,32 @@
+---
+
+- name: Install Apache and Upload my WebPage
+  hosts: all
+  become: yes
+  
+  vars:
+    source_folder: ./Ansible-example
+    destination_folder: /var/www/html
+    
+  tasks:
+  - name: Install Apache Web Serve
+    apt: name=httpd state=latest
+
+  - name: Display paths of all .txt files in dir
+    debug: msg={{ lookup('fileglob', '/my/path/*.txt') }}
+    
+  - name: Copy Home Page to Servers
+    #copy: src={{ source_folder }}/{{ item }} dest={{ destination_folder }} mode=0555
+    copy: src={{ item }} dest={{ destination_folder }} mode=0555
+    with_fileglob: "{{ source_folder }}/*.*"
+    notify: Restart Apache Debian
+    
+  - name: Start Web Server and make it ebale on boot
+    service: name=apache2 state=started enabled=yes
+
+#handlesrs для того, аби рестартувати сервіс лише коли були зміни в хендлерах може бути умова when
+  handlers:
+    - name: Restart Apache Debian
+        service:
+          name: apache2
+          state: restarted
