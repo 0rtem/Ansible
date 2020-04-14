@@ -13,7 +13,7 @@
     apt: name=apache2 state=latest
 
   - name: Generate index.html file
-    template: src={{ source_folder }}/Index2.j2 dest={{ destination_folder }} mode=0555
+    template: src={{ source_folder }}/Index2.j2 dest={{ destination_folder }}/index2.html mode=0555
     notify: Restart Apache Debian
 
   - name: Copy Home Page to Servers
