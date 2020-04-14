@@ -10,11 +10,8 @@
     
   tasks:
   - name: Install Apache Web Serve
-    apt: name=httpd state=latest
+    apt: name=apache2 state=latest
 
-  - name: Display paths of all .txt files in dir
-    debug: msg={{ lookup('fileglob', '/my/path/*.txt') }}
-    
   - name: Copy Home Page to Servers
     #copy: src={{ source_folder }}/{{ item }} dest={{ destination_folder }} mode=0555
     copy: src={{ item }} dest={{ destination_folder }} mode=0555
@@ -27,6 +24,6 @@
 #handlesrs для того, аби рестартувати сервіс лише коли були зміни в хендлерах може бути умова when
   handlers:
     - name: Restart Apache Debian
-        service:
-          name: apache2
-          state: restarted
+      service:
+        name: apache2
+        state: restarted
