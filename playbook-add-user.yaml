@@ -1,0 +1,34 @@
+---
+- hosts: 
+  remote_user: remoteuser
+  become: yes
+  become_method: sudo
+
+  vars:
+    user: user
+    password: pass
+    path_to_sudoers: '/etc/sudoers'
+    user_home: user_home
+
+  tasks:
+  - name: Create a login user "{{ user }}"
+    user:
+      name: "{{ user }}"
+      shell: /bin/bash
+      update_password: always
+      password: "{{ password }}"
+      home: "{{ user_home }}"
+
+  - name: Set password expire for user 30 days
+    shell:
+      cmd: chage -M 30 "{{ user }}"
+
+  #- name: Make backup for sudoers
+  #  shell:
+  #    cmd: cp "{{ path_to_sudoers }}" /etc/sudoers.bak
+
+  #- name: Replace admin user in the sudoers
+  #  warn: false
+  #  shell:
+  #    cmd: sed -i '/User_Alias LINUX_ADM/ s/$/, {{ user }} /' "{{ path_to_sudoers }}"
+
