@@ -1,0 +1,27 @@
+---
+- name: Delegate Playbook
+  hosts: all
+  become: yes
+
+  vars:
+    mytext: "Current time is {{ ansible_date_time }}"
+
+  tasks:
+  - name: Ping servers
+    ping:
+
+
+  - name: Create File1
+    copy:
+      dest: /home/artem/file1.txt
+      content: |
+        This is a file1
+        Current time is {{ mytext }}
+    delegate_to: ansible_test1
+
+  - name: Create File1
+    copy:
+      dest: /home/artem/file2.txt
+      content: |
+        This is a file1
+        Current time is {{ mytext }} in the other file2
