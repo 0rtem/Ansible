@@ -1,0 +1,13 @@
+---
+# tasks file for deploy_apache_web
+- name: Install Apache Web Serve
+  apt: name=apache2 state=latest
+
+- name: Generate index.html file
+  template: src=Index2.j2 dest={{ destination_folder }}/Index2.html mode=0555
+  notify: Restart Apache Debian
+
+- name: Copy Home Page to Servers
+  copy: src={{ item }} dest={{ destination_folder }} mode=0555
+  with_fileglob: "{{ source_folder }}/*.*"
+  notify: Restart Apache Debian

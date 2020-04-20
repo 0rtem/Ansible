@@ -1,0 +1,6 @@
+---
+# defaults file for deploy_apache_web
+#
+destination_folder: /var/www/html
+
+source_folder: /home/artem/ansible/Ansible/roles/deploy_apache_web/files 
