@@ -17,11 +17,29 @@
       content: |
         This is a file1
         Current time is {{ mytext }}
-    delegate_to: ansible_test1
+    delegate_to: ansible-test-1 
 
-  - name: Create File1
+  - name: Create File2
     copy:
       dest: /home/artem/file2.txt
       content: |
-        This is a file1
+        This is a file2
         Current time is {{ mytext }} in the other file2
+
+
+    # Reboot servers 
+  - name: Reboot my servers
+    shell: sleep 3 && reboot now
+    async: 1
+    poll: 0    
+
+
+
+  - name: Wait untill my server will alive
+    wait_for:
+      host: "{{ inventory_hostname }}"
+      state: started
+      delay: 10
+      timeout: 40
+    delegate_to: 127.0.0.1
+
