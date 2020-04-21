@@ -1,0 +1,24 @@
+---
+- name: Ansible error handling
+  hosts: all
+  any_errors_fatal: true
+  become: yes
+
+
+  tasks:
+  - name: Task Number1
+    apt: name=treee state=latest
+    ignore_errors: yes 
+
+  - name: Task Number2
+    shell: echo "I'm the task number2"
+    register: results # зберігаємо результати в змінну
+    failed_when: results.rc == 0
+#   failed_when: "'task' in results.stdout"
+    
+  - debug:
+      var: results
+
+    
+  - name: Task Number3
+    shell: echo "I'm task number3!!"
